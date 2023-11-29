@@ -3,6 +3,7 @@ package com.example.contactapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import fragment.ListContactFragment
+import models.Contact
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         // Replace the current fragment with the new fragment
-        fragmentTransaction.replace(R.id.fragment_container, ListContactFragment())
+        fragmentTransaction.replace(R.id.fragment_container, ListContactFragment(ArrayList<Contact>()))
 
         // Commit the FragmentTransaction
         fragmentTransaction.commit()

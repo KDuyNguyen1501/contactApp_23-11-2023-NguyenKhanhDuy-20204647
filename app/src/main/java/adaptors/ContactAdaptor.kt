@@ -12,7 +12,7 @@ import com.example.contactapp.R
 import fragment.DetailContactFragment
 import models.Contact
 
-class ContactAdaptor(val contacts: List<Contact>) : RecyclerView.Adapter<ContactAdaptor.ViewHolder>() {
+class ContactAdaptor(val contacts: ArrayList<Contact>) : RecyclerView.Adapter<ContactAdaptor.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val contactAvt = view.findViewById<TextView>(R.id.contact_avt)
         val contactName = view.findViewById<TextView>(R.id.contact_name)
@@ -35,7 +35,7 @@ class ContactAdaptor(val contacts: List<Contact>) : RecyclerView.Adapter<Contact
             val fragmentTransaction = fragmentManager.beginTransaction()
 
             // Replace the current fragment with the new fragment
-            fragmentTransaction.replace(R.id.fragment_container, DetailContactFragment(contact))
+            fragmentTransaction.replace(R.id.fragment_container, DetailContactFragment(contact, contacts))
 
             // Commit the FragmentTransaction
             fragmentTransaction.commit()

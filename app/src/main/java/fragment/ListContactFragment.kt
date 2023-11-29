@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactapp.R
 import models.Contact
-import kotlin.random.Random
 
 
-class ListContactFragment : Fragment() {
+class ListContactFragment(var listContact: ArrayList<Contact>) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +22,19 @@ class ListContactFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.list_contact_fragment, container, false)
+        val back_btn = view.findViewById<Button>(R.id.add_contact_btn)
+        back_btn.setOnClickListener{
+            val fragmentManager = (view.context as AppCompatActivity).supportFragmentManager
+
+            // Start a new FragmentTransaction
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            // Replace the current fragment with the new fragment
+            fragmentTransaction.replace(R.id.fragment_container, AddContactFragment(listContact))
+
+            // Commit the FragmentTransaction
+            fragmentTransaction.commit()
+        }
         // Inflate the layout for this fragment
         return view
     }
@@ -28,16 +42,11 @@ class ListContactFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listContact = view.findViewById<RecyclerView>(R.id.list_contact)
-        listContact.layoutManager = LinearLayoutManager(context)
+        val listContactWidget = view.findViewById<RecyclerView>(R.id.list_contact)
+        listContactWidget.layoutManager = LinearLayoutManager(context)
 
-        val contacts = ArrayList<Contact>()
-        val alphabet = "ABCDEFGHIGKLMNOPQRSTUVWXYZ"
-        for (i in 1..20) {
-            contacts.add(Contact(i, alphabet[Random.nextInt(alphabet.length)] + "ame", "0987654321",alphabet[Random.nextInt(alphabet.length)] + "email@gmail.com"))
-        }
 
-        listContact.adapter = ContactAdaptor(contacts)
+        listContactWidget.adapter = ContactAdaptor(listContact)
     }
 
 }

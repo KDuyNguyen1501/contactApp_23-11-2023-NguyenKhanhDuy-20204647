@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.contactapp.R
 import models.Contact
 
-class DetailContactFragment(val contact: Contact) : Fragment() {
+class DetailContactFragment(val contact: Contact, val listContact: ArrayList<Contact>) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,7 @@ class DetailContactFragment(val contact: Contact) : Fragment() {
             val fragmentTransaction = fragmentManager.beginTransaction()
 
             // Replace the current fragment with the new fragment
-            fragmentTransaction.replace(R.id.fragment_container, ListContactFragment())
+            fragmentTransaction.replace(R.id.fragment_container, ListContactFragment(listContact))
 
             // Commit the FragmentTransaction
             fragmentTransaction.commit()
